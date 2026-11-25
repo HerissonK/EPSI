@@ -1,5 +1,7 @@
 from __future__ import annotations
+
 import ast
+import tkinter as tk
 
 class QuadTree:
     NB_NODES : int = 4
@@ -16,7 +18,6 @@ class QuadTree:
                        self.hd.depth if isinstance(self.hd, QuadTree) else 0,
                        self.bd.depth if isinstance(self.bd, QuadTree) else 0,
                        self.bg.depth if isinstance(self.bg, QuadTree) else 0)
-    
 
     @staticmethod
     def fromFile(filename: str) -> QuadTree:
@@ -37,4 +38,8 @@ class QuadTree:
 class TkQuadTree(QuadTree):
     def paint(self):
         """ TK representation of a Quadtree"""
-        pass
+        root = tk.Tk()
+        canvas = tk.Canvas(root, width=400, height=400)
+        canvas.pack()
+        self._paint(canvas, 0, 0, 400, 400)
+        root.mainloop()
